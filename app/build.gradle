@@ -21,6 +21,10 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://api.unsplash.com/\"")
+            buildConfigField("String", "CLIENT_ID", "\"79c84a25d8a682ab1060e4d5d5648eebad0cd74d1bc1bb97fe5ec05a9b1cc0c8\"")
+        }
     }
 
     androidExtensions {
@@ -53,6 +57,12 @@ dependencies {
     // Lifecycle Annotations
     kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
 
+    // Networking
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0"
 
     // Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
@@ -63,6 +73,8 @@ dependencies {
 
     // Parser
     implementation "com.google.code.gson:gson:$gson_version"
+
+    implementation "com.jakewharton.timber:timber:$timber_version"
 
     // Local Unit tests
     testImplementation "junit:junit:$junit_version"

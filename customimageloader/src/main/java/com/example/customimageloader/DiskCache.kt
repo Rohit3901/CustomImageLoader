@@ -13,7 +13,6 @@ class DiskCache(context: Context) : ImageCache {
 
     override fun get(url: String): Bitmap? {
         val key = url.md5()
-        Log.e("hash",key)
         val snapshot: DiskLruCache.Snapshot? = cache.get(key)
         return if (snapshot != null) {
             val inputStream: InputStream = snapshot.getInputStream(0)
