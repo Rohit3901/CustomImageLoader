@@ -42,7 +42,6 @@ abstract class BaseViewModel(
                     -1 -> messageStringId.postValue(Resource.error(R.string.network_default_error))
                     0 -> messageStringId.postValue(Resource.error(R.string.server_connection_error))
                     HttpsURLConnection.HTTP_UNAUTHORIZED -> {
-                        forcedLogoutUser()
                         messageStringId.postValue(Resource.error(R.string.server_connection_error))
                     }
                     HttpsURLConnection.HTTP_INTERNAL_ERROR ->
@@ -54,9 +53,6 @@ abstract class BaseViewModel(
             }
         }
 
-    protected open fun forcedLogoutUser() {
-        // do something
-    }
 
     abstract fun onCreate()
 }

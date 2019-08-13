@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imageloader.R
 import com.example.imageloader.di.component.ActivityComponent
 import com.example.imageloader.ui.base.BaseActivity
@@ -46,7 +45,7 @@ class MainActivity :BaseActivity<MainViewModel>(){
 
 
     @Inject
-    lateinit var linearLayoutManager: LinearLayoutManager
+    lateinit var linearLayoutManager: GridLayoutManager
 
     @Inject
     lateinit var photoAdapter:PhotoAdapter
@@ -59,7 +58,10 @@ class MainActivity :BaseActivity<MainViewModel>(){
     }
 
     override fun setupView(savedInstanceState: Bundle?) {
-
+        recyclerView.apply {
+            layoutManager = linearLayoutManager
+            adapter = photoAdapter
+        }
     }
 
     override fun setupObservers() {
@@ -67,6 +69,10 @@ class MainActivity :BaseActivity<MainViewModel>(){
 
         viewModel.loading.observe(this, Observer {
             progressBar.visibility = if (it) View.VISIBLE else View.GONE
+        })
+
+        viewModel.posts.observe(this, Observer {
+            it.data?.run { photoAdapter.appendData(this) }
         })
     }
 

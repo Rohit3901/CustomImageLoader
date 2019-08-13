@@ -85,5 +85,4 @@ abstract class BaseItemViewHolder<T : Any, VM : BaseItemViewModel<T>>(
     protected abstract fun injectDependencies(viewHolderComponent: ViewHolderComponent)
 
     abstract fun setupView(view: View)
-
 }

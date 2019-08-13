@@ -1,6 +1,7 @@
 package com.example.imageloader.di.module
 
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imageloader.data.repository.PhotoRepository
 import com.example.imageloader.ui.base.BaseActivity
@@ -17,7 +18,7 @@ import io.reactivex.disposables.CompositeDisposable
 class ActivityModule(private val activity: BaseActivity<*>) {
 
     @Provides
-    fun provideLinearLayoutManager(): LinearLayoutManager = LinearLayoutManager(activity)
+    fun provideLinearLayoutManager(): GridLayoutManager = GridLayoutManager(activity,2)
 
     @Provides
     fun provideMainViewModel(
@@ -27,7 +28,7 @@ class ActivityModule(private val activity: BaseActivity<*>) {
         photoRepository: PhotoRepository
     ): MainViewModel = ViewModelProviders.of(
         activity, ViewModelProviderFactory(MainViewModel::class) {
-            MainViewModel(schedulerProvider, compositeDisposable, networkHelper,photoRepository)
+            MainViewModel(schedulerProvider, compositeDisposable, networkHelper,photoRepository,ArrayList())
         }).get(MainViewModel::class.java)
 
     @Provides

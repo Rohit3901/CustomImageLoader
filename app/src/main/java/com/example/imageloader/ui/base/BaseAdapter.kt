@@ -84,4 +84,8 @@ abstract class BaseAdapter<T : Any, VH : BaseItemViewHolder<T, out BaseItemViewM
     override fun onBindViewHolder(holder: VH, position: Int) {
         holder.bind(dataList[position])
     }
+
+    fun appendData(dataList: List<T>){
+        this.dataList.addAll(dataList)
+    }
 }

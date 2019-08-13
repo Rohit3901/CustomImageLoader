@@ -11,7 +11,7 @@ data class PhotosResponse(
     val width:Int,
     val height:Int,
     @SerializedName("urls")
-    val urls: List<UrlsData>
+    val urls: UrlsData
 
 ):Parcelable
 
