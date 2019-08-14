@@ -5,27 +5,31 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.customimageloader.ImageLoader
 import com.example.imageloader.R
 import com.example.imageloader.di.component.ActivityComponent
 import com.example.imageloader.ui.base.BaseActivity
 import com.example.imageloader.ui.main.photos.PhotoAdapter
+import com.example.imageloader.utils.display.Toaster
+import com.example.imageloader.utils.log.Logger
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
-class MainActivity :BaseActivity<MainViewModel>(){
+class MainActivity : BaseActivity<MainViewModel>() {
 
 
     @Inject
     lateinit var linearLayoutManager: GridLayoutManager
 
     @Inject
-    lateinit var photoAdapter:PhotoAdapter
+    lateinit var photoAdapter: PhotoAdapter
 
 
-    override fun provideLayoutId(): Int =R.layout.activity_main
+    override fun provideLayoutId(): Int = R.layout.activity_main
 
     override fun injectDependencies(activityComponent: ActivityComponent) {
-       activityComponent.inject(this)
+        activityComponent.inject(this)
     }
 
     override fun setupView(savedInstanceState: Bundle?) {
@@ -33,17 +37,36 @@ class MainActivity :BaseActivity<MainViewModel>(){
             layoutManager = linearLayoutManager
             adapter = photoAdapter
         }
+
+        floatingActionButton.setOnClickListener {
+            viewModel.stopCall()
+        }
     }
 
     override fun setupObservers() {
         super.setupObservers()
         viewModel.loading.observe(this, Observer {
-            progressBar.visibility = if (it) View.VISIBLE else View.GONE
+              if (it) {
+                  progressBar.visibility=  View.VISIBLE
+            } else {
+                  progressBar.visibility= View.GONE
+                 // floatingActionButton.hide()
+            }
+
         })
 
         viewModel.posts.observe(this, Observer {
             it.data?.run { photoAdapter.appendData(this) }
         })
+
+        viewModel.stoploading.observe(this, Observer {
+            if (it) {
+                progressBar.visibility = View.GONE
+                Toaster.show(applicationContext, "Loading canceled")
+                ImageLoader.clearCache()
+            }
+        })
+
     }
 
 }

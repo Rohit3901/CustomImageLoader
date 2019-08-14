@@ -23,7 +23,6 @@ class PhotoItemViewModel @Inject constructor(
         it.urls.regular.run { this }
     }
 
-
     override fun onCreate() {}
 
 

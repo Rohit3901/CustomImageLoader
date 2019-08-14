@@ -15,6 +15,7 @@ import kotlinx.android.synthetic.main.item_layout.view.*
 class PhotoItemViewHolder (parent:ViewGroup):
         BaseItemViewHolder<PhotosResponse,PhotoItemViewModel>(R.layout.item_layout,parent){
 
+
     override fun injectDependencies(viewHolderComponent: ViewHolderComponent) {
         viewHolderComponent.inject(this)
     }
@@ -24,7 +25,6 @@ class PhotoItemViewHolder (parent:ViewGroup):
         viewModel.image.observe(this, Observer {
             it.run {
                 ImageLoader.setCache(DoubleCache(itemView.item_imageView.context))
-                //ImageLoader.with(context).load(holder.imageView, items[position])
                 ImageLoader.displayImage(this, itemView.item_imageView)
 
             }
@@ -34,4 +34,5 @@ class PhotoItemViewHolder (parent:ViewGroup):
     override fun setupView(view: View) {
 
     }
+
 }

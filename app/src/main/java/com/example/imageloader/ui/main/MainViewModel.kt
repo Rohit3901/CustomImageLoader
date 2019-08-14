@@ -19,7 +19,7 @@ class MainViewModel(
 
     val loading: MutableLiveData<Boolean> = MutableLiveData()
     val posts: MutableLiveData<Resource<List<PhotosResponse>>> = MutableLiveData()
-
+    val stoploading:MutableLiveData<Boolean> = MutableLiveData()
 
     init {
 
@@ -41,5 +41,11 @@ class MainViewModel(
         )
     }
 
+    fun stopCall() {
+        compositeDisposable.clear()
+        stoploading.postValue(true)
+    }
+
     override fun onCreate() {}
+
 }

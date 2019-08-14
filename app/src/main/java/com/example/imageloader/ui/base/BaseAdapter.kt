@@ -87,5 +87,6 @@ abstract class BaseAdapter<T : Any, VH : BaseItemViewHolder<T, out BaseItemViewM
 
     fun appendData(dataList: List<T>){
         this.dataList.addAll(dataList)
+        notifyDataSetChanged()
     }
 }

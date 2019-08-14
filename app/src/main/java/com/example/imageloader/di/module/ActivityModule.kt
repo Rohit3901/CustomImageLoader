@@ -2,7 +2,6 @@ package com.example.imageloader.di.module
 
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.imageloader.data.repository.PhotoRepository
 import com.example.imageloader.ui.base.BaseActivity
 import com.example.imageloader.ui.main.MainViewModel
