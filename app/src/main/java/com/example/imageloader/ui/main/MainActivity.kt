@@ -63,7 +63,9 @@ class MainActivity : BaseActivity<MainViewModel>() {
             if (it) {
                 progressBar.visibility = View.GONE
                 Toaster.show(applicationContext, "Loading canceled")
-                ImageLoader.clearCache()
+
+                //Clear the cache on cancel the on flight request
+                //ImageLoader.clearCache()
             }
         })
 
