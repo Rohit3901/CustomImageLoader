@@ -1,6 +1,7 @@
 package com.example.imageloader.ui.main.photos
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
 import com.example.imageloader.data.remote.response.PhotosResponse
 import com.example.imageloader.ui.base.BaseItemViewHolder
@@ -18,12 +19,18 @@ class PhotoItemViewModel @Inject constructor(
     ):BaseItemViewModel<PhotosResponse>(schedulerProvider, compositeDisposable, networkHelper){
 
 
+    val itemClick:MutableLiveData<PhotosResponse> = MutableLiveData()
+
     val image: LiveData<String> = Transformations.map(data){
         Logger.e("url",it.urls.regular)
         it.urls.regular.run { this }
     }
 
     override fun onCreate() {}
+
+    fun onImageClicked(){
+        itemClick.postValue(data.value)
+    }
 
 
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.imageloader.data.repository.PhotoRepository
 import com.example.imageloader.ui.base.BaseActivity
+import com.example.imageloader.ui.fullImage.FullImageViewModel
 import com.example.imageloader.ui.main.MainViewModel
 import com.example.imageloader.ui.main.photos.PhotoAdapter
 import com.example.imageloader.utils.ViewModelProviderFactory
@@ -32,5 +33,15 @@ class ActivityModule(private val activity: BaseActivity<*>) {
 
     @Provides
     fun providePhotoAdapter() = PhotoAdapter(activity.lifecycle, ArrayList())
+
+    @Provides
+    fun provideFullImageViewModel(
+        schedulerProvider: SchedulerProvider,
+        compositeDisposable: CompositeDisposable,
+        networkHelper: NetworkHelper
+    ): FullImageViewModel = ViewModelProviders.of(
+        activity, ViewModelProviderFactory(FullImageViewModel::class) {
+            FullImageViewModel(schedulerProvider, compositeDisposable, networkHelper)
+        }).get(FullImageViewModel::class.java)
 
 }

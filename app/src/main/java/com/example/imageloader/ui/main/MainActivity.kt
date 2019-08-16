@@ -1,8 +1,10 @@
 package com.example.imageloader.ui.main
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -10,6 +12,7 @@ import com.example.customimageloader.ImageLoader
 import com.example.imageloader.R
 import com.example.imageloader.di.component.ActivityComponent
 import com.example.imageloader.ui.base.BaseActivity
+import com.example.imageloader.ui.fullImage.FullImageActivity
 import com.example.imageloader.ui.main.photos.PhotoAdapter
 import com.example.imageloader.utils.display.Toaster
 import com.example.imageloader.utils.log.Logger
@@ -41,6 +44,12 @@ class MainActivity : BaseActivity<MainViewModel>() {
         floatingActionButton.setOnClickListener {
             viewModel.stopCall()
         }
+
+        photoAdapter.itemSelectionListener = {
+            position, data ->  viewModel.openImage(data.urls.regular)
+        }
+
+
     }
 
     override fun setupObservers() {
@@ -69,6 +78,11 @@ class MainActivity : BaseActivity<MainViewModel>() {
             }
         })
 
+        viewModel.launchImage.observe(this, Observer {
+            it.getIfNotHandled()?.run {
+                startActivity(Intent(applicationContext,FullImageActivity::class.java).putExtra("URL",this))
+            }
+        })
     }
 
 }

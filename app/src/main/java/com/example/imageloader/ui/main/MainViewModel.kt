@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData
 import com.example.imageloader.data.remote.response.PhotosResponse
 import com.example.imageloader.data.repository.PhotoRepository
 import com.example.imageloader.ui.base.BaseViewModel
+import com.example.imageloader.utils.common.Event
 import com.example.imageloader.utils.common.Resource
 import com.example.imageloader.utils.network.NetworkHelper
 import com.example.imageloader.utils.rx.SchedulerProvider
@@ -20,6 +21,7 @@ class MainViewModel(
     val loading: MutableLiveData<Boolean> = MutableLiveData()
     val posts: MutableLiveData<Resource<List<PhotosResponse>>> = MutableLiveData()
     val stoploading:MutableLiveData<Boolean> = MutableLiveData()
+    val launchImage:MutableLiveData<Event<String>> = MutableLiveData()
 
     init {
 
@@ -47,5 +49,9 @@ class MainViewModel(
     }
 
     override fun onCreate() {}
+
+    fun openImage(full: String) {
+        launchImage.postValue(Event(full))
+    }
 
 }

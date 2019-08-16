@@ -12,7 +12,7 @@ import com.example.imageloader.ui.base.BaseItemViewHolder
 import com.example.imageloader.utils.log.Logger
 import kotlinx.android.synthetic.main.item_layout.view.*
 
-class PhotoItemViewHolder (parent:ViewGroup):
+class PhotoItemViewHolder (parent:ViewGroup,private var itemSelectionListener: ItemSelectionListener<PhotosResponse>):
         BaseItemViewHolder<PhotosResponse,PhotoItemViewModel>(R.layout.item_layout,parent){
 
 
@@ -29,10 +29,16 @@ class PhotoItemViewHolder (parent:ViewGroup):
 
             }
         })
+
+        viewModel.itemClick.observe(this, Observer {
+            it.run {
+                itemSelectionListener.invoke(adapterPosition,this)
+            }
+        })
     }
 
     override fun setupView(view: View) {
-
+        itemView.item_imageView.setOnClickListener {viewModel.onImageClicked()}
     }
 
 }

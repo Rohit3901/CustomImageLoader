@@ -8,10 +8,14 @@ import com.example.imageloader.ui.base.BaseAdapter
 
 class PhotoAdapter (
     parentLifecycle: Lifecycle,
-    photos:ArrayList<PhotosResponse>
+    photos:ArrayList<PhotosResponse>,
+    var itemSelectionListener: ItemSelectionListener<PhotosResponse>? = null
 ): BaseAdapter<PhotosResponse, PhotoItemViewHolder>(parentLifecycle,photos){
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= PhotoItemViewHolder(parent)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int)= PhotoItemViewHolder(parent){
+            position, data ->
+        itemSelectionListener?.run { this(position, data) }
+    }
 
 
 }

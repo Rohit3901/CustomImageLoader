@@ -60,6 +60,9 @@ ext {
     // Dagger
     dagger_version = '2.21'
 
+    //PhotoView
+    photo_view = '2.3.0'
+
     // Tests
     junit_version = '4.12'
     espresso_version = '3.1.0'
