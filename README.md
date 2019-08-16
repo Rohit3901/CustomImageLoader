@@ -1,4 +1,4 @@
-# Assignment
+# Custom Image Loader 
 Android Application in Kotlin for showing list of images.
 
 ## Sdk Version and Tools
