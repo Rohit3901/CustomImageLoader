@@ -24,7 +24,7 @@ android {
         }
         debug {
             buildConfigField("String", "BASE_URL", "\"https://api.unsplash.com/\"")
-            buildConfigField("String", "CLIENT_ID", "\"79c84a25d8a682ab1060e4d5d5648eebad0cd74d1bc1bb97fe5ec05a9b1cc0c8\"")
+            buildConfigField("String", "CLIENT_ID", "\"API_KEY\"")
         }
     }
 
